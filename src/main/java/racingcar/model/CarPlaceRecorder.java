@@ -14,21 +14,17 @@ public class CarPlaceRecorder {
 
     public List<Integer> record(int numberOfTrials) {
         List<Integer> placeOfCar = new ArrayList<>();
-        recordPlaceOfCar(numberOfTrials, placeOfCar);
-        return placeOfCar;
+        return recordPlaceOfCar(numberOfTrials, placeOfCar);
     }
 
-    private void recordPlaceOfCar(int numberOfTrials, List<Integer> placeOfCar) {
+    private List<Integer> recordPlaceOfCar(int numberOfTrials, List<Integer> placeOfCar) {
         int place = NOT_START;
         for (int trial = NOT_START; trial < numberOfTrials; trial++) {
             int randomNumber = makeRandomNumber();
-            recordPlace(placeOfCar, randomNumber, place);
+            place += movement.readGoOrStop(randomNumber);
+            placeOfCar.add(place);
         }
-    }
-
-    private void recordPlace(List<Integer> placeOfCar, int randomNumber, int place) {
-        place += movement.readGoOrStop(randomNumber);
-        placeOfCar.add(place);
+        return placeOfCar;
     }
 
     private int makeRandomNumber() {

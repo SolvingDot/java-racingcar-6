@@ -22,24 +22,22 @@ public class MainController {
 
     public void play() {
         outputView.printGameStart();
-        final Car car = new Car();
-        List<String> carNames = car.readName(inputView.readCarName());
-
-        final RacingTrials racingTrials = new RacingTrials();
-        int numberOfTrials = racingTrials.read(inputView.readNumber());
+        List<String> carNames = readCarNames();
+        int numberOfTrials = readRacingTrials();
 
         Map<String, List<Integer>> racingResultTable = playCarRacing(carNames, numberOfTrials);
-
-
-        final RacingJudge judge = new RacingJudge();
-        String winner = judge.readWinners(racingResultTable);
-
+        String winner = readWinner(racingResultTable);
         printRacingResults(numberOfTrials, racingResultTable, winner);
     }
 
-    private void printRacingResults(int numberOfTrials, Map<String, List<Integer>> racingResultTable, String winner) {
-        outputView.printRacingResult(numberOfTrials, racingResultTable);
-        outputView.printWinner(winner);
+    private List<String> readCarNames() {
+        final Car car = new Car();
+        return car.readName(inputView.readCarName());
+    }
+
+    private int readRacingTrials() {
+        final RacingTrials racingTrials = new RacingTrials();
+        return racingTrials.read(inputView.readNumber());
     }
 
     private static Map<String, List<Integer>> playCarRacing(List<String> carNames, int numberOfTrials) {
@@ -49,5 +47,15 @@ public class MainController {
             racingResultTable.put(name, recorder.record(numberOfTrials));
         }
         return racingResultTable;
+    }
+
+    private static String readWinner(Map<String, List<Integer>> racingResultTable) {
+        final RacingJudge judge = new RacingJudge();
+        return judge.readWinners(racingResultTable);
+    }
+
+    private void printRacingResults(int numberOfTrials, Map<String, List<Integer>> racingResultTable, String winner) {
+        outputView.printRacingResult(numberOfTrials, racingResultTable);
+        outputView.printWinner(winner);
     }
 }
