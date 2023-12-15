@@ -5,14 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 import racingcar.model.Movement;
 
-public class RacingController {
+public class CarPlaceRecorder {
     private static final int NOT_START = 0;
-    private static final int MOVE_CONDITION = 4;
     private static final int MINIMUM_NUMBER = 0;
     private static final int MAXIMUM_NUMBER = 9;
 
     private static final Movement movement = new Movement();
-
 
     public List<Integer> record(int numberOfTrials) {
         List<Integer> placeOfCar = new ArrayList<>();
