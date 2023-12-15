@@ -3,6 +3,9 @@ package racingcar.controller;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+import racingcar.model.CarPlaceRecorder;
+import racingcar.model.RacingJudge;
 import racingcar.view.InputView;
 import racingcar.view.OutputView;
 
@@ -25,8 +28,12 @@ public class MainController {
 
         // 자동차 전진 기록, 출력 (names, numberOfTrials)
         Map<String, List<Integer>> racingResultTable = playCarRacing(carNames, numberOfTrials);
+        outputView.printRacingResult(numberOfTrials, racingResultTable);
 
         // 최종 우승자 결정, 출력
+        RacingJudge judge = new RacingJudge();
+        String winner = judge.readWinners(racingResultTable);
+        outputView.printWinner(winner);
     }
 
     private static Map<String, List<Integer>> playCarRacing(List<String> carNames, int numberOfTrials) {
