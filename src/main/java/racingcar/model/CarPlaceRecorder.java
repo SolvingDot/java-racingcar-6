@@ -18,7 +18,7 @@ public class CarPlaceRecorder {
         return placeOfCar;
     }
 
-    private static void recordPlaceOfCar(int numberOfTrials, List<Integer> placeOfCar) {
+    private void recordPlaceOfCar(int numberOfTrials, List<Integer> placeOfCar) {
         int place = NOT_START;
         for (int trial = NOT_START; trial < numberOfTrials; trial++) {
             int randomNumber = makeRandomNumber();
@@ -26,12 +26,12 @@ public class CarPlaceRecorder {
         }
     }
 
-    private static void recordPlace(List<Integer> placeOfCar, int randomNumber, int place) {
+    private void recordPlace(List<Integer> placeOfCar, int randomNumber, int place) {
         place += movement.readGoOrStop(randomNumber);
         placeOfCar.add(place);
     }
 
-    private static int makeRandomNumber() {
+    private int makeRandomNumber() {
         return Randoms.pickNumberInRange(MINIMUM_NUMBER,MAXIMUM_NUMBER);
     }
 }

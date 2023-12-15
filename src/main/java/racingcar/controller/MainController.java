@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import racingcar.model.Car;
 import racingcar.model.CarPlaceRecorder;
 import racingcar.model.RacingJudge;
+import racingcar.model.RacingTrials;
 import racingcar.view.InputView;
 import racingcar.view.OutputView;
 
@@ -24,16 +25,20 @@ public class MainController {
         final Car car = new Car();
         List<String> carNames = car.readName(inputView.readCarName());
 
-        // 시도할 횟수 입력 (String number -> Int numberOfTrials)
-        int numberOfTrials = 0;
+        final RacingTrials racingTrials = new RacingTrials();
+        int numberOfTrials = racingTrials.read(inputView.readNumber());
 
-        // 자동차 전진 기록, 출력 (names, numberOfTrials)
         Map<String, List<Integer>> racingResultTable = playCarRacing(carNames, numberOfTrials);
-        outputView.printRacingResult(numberOfTrials, racingResultTable);
 
-        // 최종 우승자 결정, 출력
-        RacingJudge judge = new RacingJudge();
+
+        final RacingJudge judge = new RacingJudge();
         String winner = judge.readWinners(racingResultTable);
+
+        printRacingResults(numberOfTrials, racingResultTable, winner);
+    }
+
+    private void printRacingResults(int numberOfTrials, Map<String, List<Integer>> racingResultTable, String winner) {
+        outputView.printRacingResult(numberOfTrials, racingResultTable);
         outputView.printWinner(winner);
     }
 
