@@ -4,6 +4,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import racingcar.model.Car;
 import racingcar.model.CarPlaceRecorder;
 import racingcar.model.RacingJudge;
 import racingcar.view.InputView;
@@ -20,8 +21,8 @@ public class MainController {
 
     public void play() {
         outputView.printGameStart();
-        // 자동차 이름 입력 (String name -> List<String> names)
-        List<String> carNames = null;
+        final Car car = new Car();
+        List<String> carNames = car.readName(inputView.readCarName());
 
         // 시도할 횟수 입력 (String number -> Int numberOfTrials)
         int numberOfTrials = 0;
